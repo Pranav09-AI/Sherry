@@ -10,7 +10,7 @@ class GeminiService:
     def generate_response(self, prompt: str) -> str:
         response = self.client.interactions.create(
             model = "gemini-3.6-flash",
-            contents = prompt,
+            input = prompt,
         )
 
         return response.output_text
