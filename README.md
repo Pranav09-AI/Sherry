@@ -8,7 +8,8 @@
 
 Sherry is an AI assistant that provides an intuitive chat experience through a clean web interface. The project focuses on building a production-style AI application by integrating Large Language Models (LLMs) with a scalable backend architecture.
 
-This is **Version 1** of Sherry, which establishes the core chat functionality. Future versions will progressively introduce Retrieval-Augmented Generation (RAG), voice interaction, AI agents, and multi-model orchestration.
+This is **Version 1** of Sherry, which establishes the core chat functionality. Future versions will progressively introduce Retrieval-Augmented Generation (RAG), voice interaction, AI agents, and multi-model orchestration and at final this will be more on debugging model that focus on helping debugging the file.
+
 
 ---
 
