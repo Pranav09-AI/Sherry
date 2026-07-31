@@ -18,8 +18,6 @@ This is **Version 1** of Sherry, which establishes the core chat functionality. 
 * 💬 Real-time AI chat interface
 * 🎨 Clean and responsive UI
 * ⚡ FastAPI backend
-* 🔍 Chat history support
-* 📱 Mobile-friendly design
 * 🔐 Environment variable support for API keys
 * 🧩 Modular project structure
 * 🚀 Easy to extend with new AI models
@@ -104,7 +102,7 @@ Sherry/
 ## 1. Clone the repository
 
 ```bash
-[git clone https://github.com/your-username/sherry.git](https://github.com/Pranav09-AI/Sherry.git)
+git clone https://github.com/Pranav09-AI/Sherry.git
 
 cd sherry
 ```
