@@ -202,16 +202,13 @@ Launch `index.html` in your browser or serve the frontend using your preferred l
 
 # 📸 Screenshots
 
-> Add screenshots of the application here.
+<img width="1919" height="926" alt="image" src="https://github.com/user-attachments/assets/cf38d585-9c49-4bcf-b486-5585bfda7fb4" />
 
-Example:
 
-```
-screenshots/
-├── home.png
-├── chat.png
-└── mobile.png
-```
+
+
+
+
 
 ---
 
