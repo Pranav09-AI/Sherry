@@ -103,7 +103,7 @@ Sherry/
 ## 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/sherry.git
+[git clone https://github.com/your-username/sherry.git](https://github.com/Pranav09-AI/Sherry.git)
 
 cd sherry
 ```
