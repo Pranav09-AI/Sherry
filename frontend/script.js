@@ -5,26 +5,54 @@ const heroSection = document.querySelector(".container");
 const API_URL = "http://127.0.0.1:8000/chat";
 const chatContainer = document.getElementById("chat-container");
 let isLoading = false;
+const copyButton = document.createElement("button");
 
 function addMessage(message, sender) {
 
     const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", sender);
 
-    messageDiv.classList.add("message");
+    const textDiv = document.createElement("div");
+    textDiv.classList.add("message-text");
+    textDiv.textContent = message;
 
-    if (sender === "user") {
-        messageDiv.classList.add("user");
-    } else {
-        messageDiv.classList.add("bot");
+    messageDiv.appendChild(textDiv);
+
+    // Copy button only for bot messages
+    if (sender === "bot") {
+
+        const copyButton = document.createElement("button");
+        copyButton.classList.add("copy-btn");
+        copyButton.textContent = "📋 Copy";
+
+        copyButton.addEventListener("click", async () => {
+
+            try {
+
+                await navigator.clipboard.writeText(textDiv.textContent);
+
+                copyButton.textContent = "✓ Copied";
+
+                setTimeout(() => {
+                    copyButton.textContent = "📋 Copy";
+                }, 2000);
+
+            }
+            catch (err) {
+
+                console.error("Copy failed:", err);
+
+            }
+
+        });
+
+        messageDiv.appendChild(copyButton);
     }
 
-    messageDiv.innerHTML = marked.parse(message);;
-
     chatContainer.appendChild(messageDiv);
-
     chatContainer.scrollTop = chatContainer.scrollHeight;
 
-    return messageDiv;
+    return textDiv;
 }
 
 async function sendMessage() {

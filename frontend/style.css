@@ -96,6 +96,8 @@ body {
     border: 1px solid rgba(0, 0, 0, 0.08);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     animation: fadeIn 0.25s ease;
+    display: flex;
+    flex-direction: column;
 }
 
 .user {
@@ -128,4 +130,20 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+.copy-btn {
+    margin-top: 6px;
+    background: transparent;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    font-size: 14px;
+    align-self: flex-end;
+    transition: 0.2s ease;
+}
+
+.copy-btn:hover {
+    color: #000;
 }
