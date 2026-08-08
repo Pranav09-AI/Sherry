@@ -1,5 +1,9 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException
 import os
+
+from fastapi import APIRouter, UploadFile, File, HTTPException
+
+from app.services.ingestion_service import ingest_document
+
 
 router = APIRouter()
 
@@ -30,7 +34,9 @@ async def upload(file: UploadFile = File(...)):
     with open(file_path, "wb") as f:
         f.write(content)
 
+    ingest_document(file_path)
+
     return {
         "filename": file.filename,
-        "message": "PDF uploaded successfully."
+        "message": "PDF uploaded and processed successfully."
     }
