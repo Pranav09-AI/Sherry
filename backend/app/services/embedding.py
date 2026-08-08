@@ -1,12 +1,15 @@
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 
-def embed(chunks):
-    embeddings = GoogleGenerativeAIEmbeddings(
-        model="gemini-embedding-2-preview",
-        output_dimensionality=768
-    )
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="gemini-embedding-2-preview",
+    output_dimensionality=768
+)
 
-    vectors = embeddings.embed_documents(chunks)
+
+def embed(chunks):
+    texts = [chunk.page_content for chunk in chunks]
+
+    vectors = embeddings.embed_documents(texts)
 
     return vectors
