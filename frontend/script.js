@@ -14,7 +14,7 @@ function addMessage(message, sender) {
 
     const textDiv = document.createElement("div");
     textDiv.classList.add("message-text");
-    textDiv.textContent = message;
+    textDiv.innerHTML = marked.parse(message);
 
     messageDiv.appendChild(textDiv);
 
