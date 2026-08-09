@@ -1,11 +1,10 @@
 from dotenv import load_dotenv
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_mistralai import MistralAIEmbeddings
 load_dotenv()
 
 
-embeddings = GoogleGenerativeAIEmbeddings(
-    model="gemini-embedding-2-preview",
-    output_dimensionality=768
+embeddings = MistralAIEmbeddings(
+    model="mistral-embed",
 )
 
 
@@ -15,3 +14,4 @@ def embed(chunks):
     vectors = embeddings.embed_documents(texts)
 
     return vectors
+

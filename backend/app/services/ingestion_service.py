@@ -10,6 +10,7 @@ def ingest_document(file_path):
     documents = load_path(file_path)
 
     chunks = split_documents(documents)
+    print("Number of chunks:", len(chunks))
 
     document_id = str(uuid.uuid4())
 
