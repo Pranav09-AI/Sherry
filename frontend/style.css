@@ -200,3 +200,16 @@ body {
 .message-text em {
     font-style: italic;
 }
+
+
+#clip-btn {
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 15px;
+    color: #555;
+    user-select: none;
+}
+
+#clip-btn:hover {
+    color: #000;
+}

@@ -3,15 +3,19 @@
 
 <head>
     <meta charset="UTF-8" lang="eng">
-    <meta name="viewport" content="device-width, initial-scale = 1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sherry</title>
+
     <link rel="stylesheet" href="style.css">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
     <div class="container">
         <h1 class="chatbot-name">Sherry</h1>
         <p class="tagline">Learn. Debug. Build.</p>
@@ -20,15 +24,31 @@
     <div class="chat-container" id="chat-container"></div>
 
     <div class="search-box">
-        <input id="message-input" type="text" placeholder="Ask Sherry anything..." autocomplete="off">
+
+        <label for="pdf-file" id="clip-btn">
+            📎
+        </label>
+
+        <input
+            type="file"
+            id="pdf-file"
+            accept=".pdf"
+            hidden>
+
+        <input
+            id="message-input"
+            type="text"
+            placeholder="Ask Sherry anything..."
+            autocomplete="off">
+
         <button id="send-btn">
             ➜
         </button>
 
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="script.js"></script>
-
 
 </body>
 

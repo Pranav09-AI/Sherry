@@ -1,11 +1,14 @@
-const inputBox = document.querySelector(".search-box input");
-const sendButton = document.querySelector(".search-box button");
+const inputBox = document.getElementById("message-input");
+const sendButton = document.getElementById("send-btn");
 const heroSection = document.querySelector(".container");
+const pdfFileInput = document.getElementById("pdf-file");
 
 const API_URL = "http://127.0.0.1:8000/chat";
+const UPLOAD_URL = "http://127.0.0.1:8000/upload";
+
 const chatContainer = document.getElementById("chat-container");
+
 let isLoading = false;
-const copyButton = document.createElement("button");
 
 function addMessage(message, sender) {
 
@@ -18,7 +21,6 @@ function addMessage(message, sender) {
 
     messageDiv.appendChild(textDiv);
 
-    // Copy button only for bot messages
     if (sender === "bot") {
 
         const copyButton = document.createElement("button");
@@ -29,7 +31,9 @@ function addMessage(message, sender) {
 
             try {
 
-                await navigator.clipboard.writeText(textDiv.textContent);
+                await navigator.clipboard.writeText(
+                    textDiv.textContent
+                );
 
                 copyButton.textContent = "✓ Copied";
 
@@ -37,8 +41,7 @@ function addMessage(message, sender) {
                     copyButton.textContent = "📋 Copy";
                 }, 2000);
 
-            }
-            catch (err) {
+            } catch (err) {
 
                 console.error("Copy failed:", err);
 
@@ -61,67 +64,148 @@ async function sendMessage() {
         return;
     }
 
-    isLoading = true;
-
     const message = inputBox.value.trim();
 
     if (message === "") {
         return;
     }
 
-    // Show user message immediately
+    isLoading = true;
+
     addMessage(message, "user");
 
     inputBox.value = "";
     inputBox.focus();
 
-    const thinkingMessage = addMessage("Sherry is thinking...", "bot");
     heroSection.style.display = "none";
-    inputBox.disabled = false;
+
+    const thinkingMessage = addMessage(
+        "Sherry is thinking...",
+        "bot"
+    );
+
     sendButton.disabled = true;
     sendButton.textContent = "...";
-
 
     try {
 
         const response = await fetch(API_URL, {
+
             method: "POST",
+
             headers: {
                 "Content-Type": "application/json"
             },
+
             body: JSON.stringify({
                 message: message
             })
+
         });
 
         if (!response.ok) {
-            throw new Error("Failed to connect to backend.");
+            throw new Error(
+                "Failed to connect to backend."
+            );
         }
 
         const data = await response.json();
 
-        // Show Sherry's response
-        thinkingMessage.textContent = data.response;
+        thinkingMessage.innerHTML = marked.parse(
+            data.response
+        );
 
     } catch (error) {
 
-        addMessage("Error: " + error.message, "bot");
         console.error(error);
+
+        thinkingMessage.innerHTML =
+            "❌ Error: " + error.message;
 
     } finally {
 
         isLoading = false;
+
         sendButton.disabled = false;
         sendButton.textContent = "➜";
+
     }
 }
 
-sendButton.addEventListener("click", sendMessage);
+sendButton.addEventListener(
+    "click",
+    sendMessage
+);
 
-inputBox.addEventListener("keydown", function (event) {
+inputBox.addEventListener(
+    "keydown",
+    function (event) {
 
-    if (event.key === "Enter" && !sendButton.disabled) {
-        sendMessage();
+        if (
+            event.key === "Enter" &&
+            !sendButton.disabled
+        ) {
+            sendMessage();
+        }
+
     }
+);
 
-});
+pdfFileInput.addEventListener(
+    "change",
+    async () => {
+
+        const file = pdfFileInput.files[0];
+
+        if (!file) {
+            return;
+        }
+
+        heroSection.style.display = "none";
+
+        addMessage(
+            `📄 Uploading ${file.name}...`,
+            "bot"
+        );
+
+        const formData = new FormData();
+
+        formData.append(
+            "file",
+            file
+        );
+
+        try {
+
+            const response = await fetch(
+                UPLOAD_URL,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    "Upload failed"
+                );
+            }
+
+            addMessage(
+                `✅ ${file.name} uploaded successfully`,
+                "bot"
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            addMessage(
+                "❌ PDF upload failed",
+                "bot"
+            );
+
+        }
+
+    }
+);
