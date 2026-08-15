@@ -1,6 +1,6 @@
 class PromptService:
 
-    def build_prompt(self, user_message: str) -> str:
+    def build_prompt(self, user_message: str, context: str) -> str:
 
         system_prompt = """
 You are Sherry.
@@ -38,6 +38,9 @@ Response Style:
 
         return f"""
 {system_prompt}
+
+Context:
+{context}
 
 User:
 {user_message}
