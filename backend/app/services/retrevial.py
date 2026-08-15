@@ -9,7 +9,7 @@ vector_store = Chroma(
 
 def retrieve(query: str)-> str:
     result = vector_store.similarity_search (
-        query = " What is the title of the pdf and what is about summarize about it in 2 lines?",
+        query = query,
         k = 3
     )
 
