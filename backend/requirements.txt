@@ -7,3 +7,4 @@ langchain-community
 pypdf 
 langchain-google-genai 
 langchain-chroma>=0.1.2  # Refer langchain docs for newer version
+langchain-mistralai
