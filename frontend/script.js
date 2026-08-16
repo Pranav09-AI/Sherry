@@ -3,8 +3,8 @@ const sendButton = document.getElementById("send-btn");
 const heroSection = document.querySelector(".container");
 const pdfFileInput = document.getElementById("pdf-file");
 
-const API_URL = "http://127.0.0.1:8000/chat";
-const UPLOAD_URL = "http://127.0.0.1:8000/upload";
+const API_URL = "https://sherry-i2ce.onrender.com/chat";
+const UPLOAD_URL = "https://sherry-i2ce.onrender.com/upload";
 
 const chatContainer = document.getElementById("chat-container");
 
