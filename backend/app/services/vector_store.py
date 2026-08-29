@@ -1,27 +1,25 @@
-import uuid
+import os
+from pinecone import Pinecone
+from dotenv import load_dotenv
+from pinecone import ServerlessSpec
+from langchain_pinecone import PineconeVectorStore
+from app.services.embedding import embeddings
+from app.config import settings 
+load_dotenv()
 
-from langchain_chroma import Chroma
+pinecone_api_key = settings.PINECONE_API_KEY
+pc = Pinecone(api_key=pinecone_api_key)
 
 
-def create_vector_store(chunks, document_id, source, embeddings):
+index_name = "sherry"
 
-    ids = []
-
-    for chunk in chunks:
-        chunk.metadata["document_id"] = document_id
-        chunk.metadata["source"] = source
-
-        ids.append(str(uuid.uuid4()))
-
-    vector_store = Chroma(
-        collection_name="sherry_documents",
-        embedding_function=embeddings,
-        persist_directory="./chroma_db",
+if not pc.has_index(index_name):
+    pc.create_index(
+        name = index_name,
+        dimension=1024,
+        metric="cosine",
+        spec=ServerlessSpec(cloud="aws", region="us-east-1"),
     )
+index = pc.Index(index_name)
 
-    vector_store.add_documents(
-        documents=chunks,
-        ids=ids
-    )
-
-    return vector_store
+vector_store = PineconeVectorStore(index = index, embedding=embeddings)
