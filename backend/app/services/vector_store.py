@@ -1,10 +1,8 @@
 from pinecone import Pinecone
-from dotenv import load_dotenv
 from pinecone import ServerlessSpec
 from langchain_pinecone import PineconeVectorStore
 from app.services.embedding import embeddings
 from app.config import settings 
-load_dotenv()
 
 pinecone_api_key = settings.PINECONE_API_KEY
 pc = Pinecone(api_key=pinecone_api_key)

@@ -1,10 +1,10 @@
-from dotenv import load_dotenv
+from app.config import settings
 from langchain_mistralai import MistralAIEmbeddings
-load_dotenv()
 
 
 embeddings = MistralAIEmbeddings(
     model="mistral-embed",
+    api_key=settings.MISTRAL_API_KEY
 )
 
 
