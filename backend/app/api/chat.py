@@ -17,13 +17,6 @@ def chat(request: ChatRequest):
     for doc in results:
         context += doc.page_content + "\n\n"
 
-    print(context)
-
-
-    for doc in results:
-        print(doc.page_content)
-        print("=" * 50)
-
     final_prompt = prompt_service.build_prompt(
         request.message,
         context
