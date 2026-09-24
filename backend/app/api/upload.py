@@ -1,6 +1,8 @@
 import os
+from uuid import uuid4
+from pathlib import Path
 
-from fastapi import APIRouter, UploadFile, File, HTTPException
+from fastapi import APIRouter, UploadFile, File, HTTPException, BackgroundTasks
 
 from app.services.ingestion_service import ingest_document
 
@@ -11,7 +13,11 @@ MAX_FILE_SIZE = 20 * 1024 * 1024
 
 
 @router.post("/upload")
-async def upload(file: UploadFile = File(...)):
+async def upload(
+    background_tasks: BackgroundTasks,
+    file: UploadFile = File(...)
+    
+    ):
 
     if file.content_type != "application/pdf":
         raise HTTPException(
@@ -29,14 +35,20 @@ async def upload(file: UploadFile = File(...)):
 
     os.makedirs("uploads", exist_ok=True)
 
-    file_path = os.path.join("uploads", file.filename)
+    safe_filename = Path(file.filename).name
+    storage_filename = f"{uuid4()}_{safe_filename}"
+    file_path = os.path.join("uploads", storage_filename)
 
     with open(file_path, "wb") as f:
         f.write(content)
 
-    ingest_document(file_path)
+    background_tasks.add_task(
+        ingest_document,
+        file_path
+    )
 
     return {
         "filename": file.filename,
-        "message": "PDF uploaded and processed successfully."
+        "message": "PDF uploaded. processing started."
     }
+

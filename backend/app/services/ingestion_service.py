@@ -1,5 +1,4 @@
 from uuid import uuid4
-import uuid
 import os
 
 from app.services.document_loader import load_path
@@ -13,7 +12,7 @@ def ingest_document(file_path):
 
     chunks = split_documents(documents)
 
-    document_id = str(uuid.uuid4())
+    document_id = str(uuid4())
 
     source = os.path.basename(file_path)
 
@@ -28,6 +27,3 @@ def ingest_document(file_path):
         ids = uuids
 
     )
-
-    return vector_store
-
