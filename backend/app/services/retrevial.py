@@ -1,5 +1,4 @@
 from app.services.vector_store import vector_store
-from app.services.embedding import embeddings
 
 
 
