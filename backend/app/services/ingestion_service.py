@@ -3,7 +3,6 @@ import os
 
 from app.services.document_loader import load_path
 from app.services.text_splitter import split_documents
-from app.services.embedding import embeddings
 from app.services.vector_store import vector_store
 
 def ingest_document(file_path):
