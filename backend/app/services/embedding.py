@@ -8,10 +8,3 @@ embeddings = MistralAIEmbeddings(
 )
 
 
-def embed(chunks):
-    texts = [chunk.page_content for chunk in chunks]
-
-    vectors = embeddings.embed_documents(texts)
-
-    return vectors
-
